@@ -2,6 +2,7 @@ import { join } from 'path';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
+import config from 'src/config';
 import { WinstonDefaultLogLevel } from '../enums/winston-default-log-level';
 import { ParamsLoggerInterface } from '../interfaces/params-logger.interface';
 
@@ -13,15 +14,10 @@ export class LoggerConfig {
   public readonly loggerParams: ParamsLoggerInterface;
 
   constructor(private readonly configService: ConfigService) {
-    const isDev = this.configService.get<string>('APP_ENV')  === 'develop';
-    const appName = this.configService
-      .get<string>('APP_NAME', 'app-logs')
-      .toLowerCase();
-
     this.loggerParams = {
       level: this.configService.get<WinstonDefaultLogLevel>(
         'LOGGER_LEVEL',
-          isDev
+          config.isDev
           ? WinstonDefaultLogLevel.debug
           : WinstonDefaultLogLevel.info,
       ),
@@ -38,7 +34,7 @@ export class LoggerConfig {
       ),
       loggerDirectory: this.configService.get<string>(
         'LOGGER_DIRECTORY',
-        join(__dirname, '..', '..', '..', '..', '..', 'logs', appName),
+        join(__dirname, '..', '..', '..', '..', '..', 'logs', config.appName),
       ),
     };
   }

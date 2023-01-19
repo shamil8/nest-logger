@@ -57,11 +57,13 @@ export class LoggerService extends ConsoleLogger {
     message: string,
     params: ErrorLoggerInterface | any[] | string = {},
     context = this.context,
-  ): void {
+  ): Error {
     this.winstonService.logger.error(message, {
       context,
       ...(typeof params === 'string' ? { text: params } : params),
     });
+
+    return new Error(message);
   }
 
   /**

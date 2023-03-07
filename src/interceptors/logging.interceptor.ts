@@ -1,8 +1,8 @@
 import {
-    Injectable,
-    NestInterceptor,
-    ExecutionContext,
-    CallHandler,
+  CallHandler,
+  ExecutionContext,
+  Injectable,
+  NestInterceptor,
 } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
@@ -10,13 +10,14 @@ import { tap } from 'rxjs/operators';
 /** IT's only for debugging your queries! */
 @Injectable()
 export class LoggingInterceptor implements NestInterceptor {
-    intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
-        console.log('Before your query...');
+  intercept(context: ExecutionContext, next: CallHandler): Observable<any> {
+    console.log('Before your query...');
 
-        const now = Date.now();
-        return next.handle().pipe(
-            tap(() => console.log(`After... ${Date.now() - now}ms`)),
-            tap((response) => console.log('Response from my logging', response)),
-        );
-    }
+    const now = Date.now();
+
+    return next.handle().pipe(
+      tap(() => console.log(`After... ${Date.now() - now}ms`)),
+      tap((response) => console.log('Response from my logging', response)),
+    );
+  }
 }

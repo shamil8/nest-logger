@@ -1,8 +1,8 @@
-import { join } from 'path';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-
+import { join } from 'path';
 import config from 'src/config';
+
 import { WinstonDefaultLogLevel } from '../enums/winston-default-log-level';
 import { ParamsLoggerInterface } from '../interfaces/params-logger.interface';
 
@@ -17,7 +17,7 @@ export class LoggerConfig {
     this.loggerParams = {
       level: this.configService.get<WinstonDefaultLogLevel>(
         'LOGGER_LEVEL',
-          config.isDev
+        config.isDev
           ? WinstonDefaultLogLevel.debug
           : WinstonDefaultLogLevel.info,
       ),

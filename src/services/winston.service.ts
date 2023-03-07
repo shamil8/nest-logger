@@ -1,4 +1,6 @@
 import { Injectable } from '@nestjs/common';
+import { WinstonModuleOptions } from 'nest-winston';
+import { utilities as nestWinstonModuleUtilities } from 'nest-winston/dist/winston.utilities';
 import { join } from 'path';
 import {
   createLogger,
@@ -7,8 +9,6 @@ import {
   transport,
   transports,
 } from 'winston';
-import { WinstonModuleOptions } from 'nest-winston';
-import { utilities as nestWinstonModuleUtilities } from 'nest-winston/dist/winston.utilities';
 import WinstonDailyRotateFile from 'winston-daily-rotate-file';
 
 import { LoggerConfig } from '../config/logger.config';

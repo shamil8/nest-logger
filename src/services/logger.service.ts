@@ -1,8 +1,8 @@
 import { ConsoleLogger, Inject, Injectable, Scope } from '@nestjs/common';
 import { INQUIRER } from '@nestjs/core';
 
-import { WinstonService } from './winston.service';
 import { ErrorLoggerInterface } from '../interfaces/error-logger.interface';
+import { WinstonService } from './winston.service';
 
 @Injectable({ scope: Scope.TRANSIENT })
 export class LoggerService extends ConsoleLogger {
